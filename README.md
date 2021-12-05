@@ -4,6 +4,7 @@ Installation Instructions\
 Note: sql file is added if you want to skip the migration and db creation part
 
 Step 1: Create .env file in root directory of project\
+Added env.example file too for reference
 Sample is given below\
 
 JWT_PRIVATE_KEY="abc123"\
