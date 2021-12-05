@@ -23,7 +23,7 @@ DB_PROD_USER=""\
 DB_PROD_PASS=""\
 DB_PROD_NAME=""
 
-Step 2: Install Npm modules\ 
+Step 2: Install Npm modules\
 npm i
 
 Step 3: Install Development NPM Modules\
