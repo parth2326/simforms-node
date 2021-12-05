@@ -12,9 +12,18 @@ router.get('/', authenticate, getUserList);
 
 router.post('/search', authenticate, searchUsers);
 
-router.put('/:userId', authenticate, body('firstName').notEmpty().withMessage('First Name Is Required.'), body('lastName').notEmpty().withMessage('Last Name Is Required.'), body('password').optional()
-  .isLength({ min: 6 })
-  .withMessage('Password should be of atleast 6 letters.'), updateUser);
+router.put(
+  '/:userId',
+  authenticate,
+  body('firstName').notEmpty().withMessage('First Name Is Required.').isLength({ max: 50 })
+    .withMessage('First Name cannot be more than 50 characters.'),
+  body('lastName').notEmpty().withMessage('Last Name Is Required.').isLength({ max: 50 })
+    .withMessage('Last Name cannot be more than 50 characters.'),
+  body('password').optional()
+    .isLength({ min: 6, max: 25 })
+    .withMessage('Password length should be of 6 to 25 characters.'),
+  updateUser,
+);
 
 router.put('/status/:userId', authenticate, body('status').notEmpty().withMessage('Status.'), changeUserStatus);
 
