@@ -96,6 +96,10 @@ exports.login = async (req, res) => {
   }
 };
 
+/**
+ * Logout APT
+ * @method GET
+ */
 exports.logout = async (req, res) => {
   try {
     const loginHistory = await db.LoginHistory.findOne({ where: { id: req.loginId } });
