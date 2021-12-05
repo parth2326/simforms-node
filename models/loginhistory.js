@@ -1,6 +1,7 @@
 const {
   Model,
 } = require('sequelize');
+const jwt = require('jsonwebtoken');
 
 module.exports = (sequelize, DataTypes) => {
   class LoginHistory extends Model {
@@ -20,5 +21,12 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'LoginHistory',
   });
+
+  LoginHistory.createToken = async (userId) => {
+    const history = await LoginHistory.create({ userId, status: 'active' });
+    const token = jwt.sign({ id: history.id }, process.env.JWT_PRIVATE_KEY, { expiresIn: '5h' });
+    return token;
+  };
+
   return LoginHistory;
 };

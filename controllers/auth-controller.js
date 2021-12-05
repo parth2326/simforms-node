@@ -1,7 +1,6 @@
 const { validationResult } = require('express-validator');
 const bcrypt = require('bcrypt');
 const _ = require('lodash');
-const jwt = require('jsonwebtoken');
 const path = require('path');
 const db = require('../models/index');
 
@@ -44,10 +43,7 @@ exports.signup = async (req, res) => {
   // hash the password and save the user into the database
   userData.password = bcrypt.hashSync(userData.password, 10);
   const createdUser = await db.User.create(userData);
-  const loginHistory = await db.LoginHistory.create({ userId: createdUser.id, status: 'active' });
-
-  // generate jwt token and return it
-  const token = jwt.sign({ id: loginHistory.id }, process.env.JWT_PRIVATE_KEY);
+  const token = await db.LoginHistory.createToken(createdUser.id);
 
   return res.status(200).json({
     token,
@@ -82,10 +78,7 @@ exports.login = async (req, res) => {
       return res.status(400).json({ errors: ['Your account is inactive'] });
     }
 
-    const loginHistory = await db.LoginHistory.create({ userId: user.id, status: 'active' });
-
-    // generate jwt token and return it
-    const token = jwt.sign({ id: loginHistory.id }, process.env.JWT_PRIVATE_KEY);
+    const token = await db.LoginHistory.createToken(user.id);
 
     return res.status(200).json({
       token,
