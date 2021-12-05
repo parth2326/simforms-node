@@ -31,10 +31,10 @@ Step 3: Install Development NPM Modules\
 npm install --only=dev
 
 Step 4: Create Database\
-npm sequelize db:create
+npx sequelize db:create
 
 Step 5: Execute Migrations\
-npm sequelize db:migrate
+npx sequelize db:migrate
 
 Step 6: Execute The server\
 npm start
