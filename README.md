@@ -1,6 +1,7 @@
-#SIMFORMS Node Pratical
+# SimformsNodePractical
 
-Installation Instructions
+Installation Instructions\
+Note: sql file is added if you want to skip the migration and db creation part
 
 Step 1: Create .env file in root directory of project\
 Sample is given below\
