@@ -8,7 +8,8 @@ Added env.example file too for reference
 Sample is given below\
 
 JWT_PRIVATE_KEY="abc123"\
-NODE_ENV="development"
+NODE_ENV="development"\
+PORT=3000
 
 DB_DEV_HOST="localhost"\
 DB_DEV_USER="root"\
