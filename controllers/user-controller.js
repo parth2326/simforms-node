@@ -100,12 +100,9 @@ exports.searchUsers = async (req, res) => {
       whereQuery = [
         {
           [Op.or]: [
-            {
-              firstName: { [Op.like]: `%${req.body.search}%` },
-            },
-            {
-              lastName: { [Op.like]: `%${req.body.search}%` },
-            },
+            Sequelize.where(Sequelize.fn('concat', Sequelize.col('firstName'), ' ', Sequelize.col('lastName')), {
+              [Op.like]: `%${req.body.search}%`,
+            }),
             {
               email: { [Op.like]: `%${req.body.search}%` },
             },
@@ -134,6 +131,7 @@ exports.searchUsers = async (req, res) => {
       totalResults,
     });
   } catch (err) {
+    console.error(err);
     return res.status(500).json({ errors: ['Failed to process your request.'] });
   }
 };
